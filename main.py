@@ -61,3 +61,11 @@ async def generate_post(request: Request):
 
     except Exception as e:
         return PlainTextResponse(str(e), status_code=500)
+
+
+@app.get("/code")
+def download_code():
+    file_path = "code.txt"
+    if not os.path.exists(file_path):
+        return {"error": "File not found. Please generate it first."}
+    return FileResponse(file_path, media_type="text/plain", filename="code.txt")
